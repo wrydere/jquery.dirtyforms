@@ -1,5 +1,6 @@
 /*!
 	Copyright 2010 Mal Curtis
+  This fork from https://github.com/wrydere/jquery.dirtyforms
 */
 
 if (typeof jQuery == 'undefined') throw ("jQuery Required");
