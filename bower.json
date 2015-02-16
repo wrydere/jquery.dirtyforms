@@ -21,8 +21,5 @@
     "lib",
     "helpers",
     "README.md"
-  ],
-  "dependencies": {
-    "facebox": "https://github.com/nickcoyne/facebox.git#cssified"
-  }
+  ]
 }
