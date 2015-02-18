@@ -1,6 +1,7 @@
 /*!
   Copyright 2010 Mal Curtis
   This fork from https://github.com/wrydere/jquery.dirtyforms
+  This version uses system default JavaScript dialogs rather than Facebox
 */
 
 if (typeof jQuery == 'undefined') throw ("jQuery Required");
@@ -18,35 +19,33 @@ if (typeof jQuery == 'undefined') throw ("jQuery Required");
       choiceContinue : false,
       helpers : [],
       dialog : {
-        refire : function(content, ev){
-          $.facebox(content);
-        },
-        fire : function(message, title){
-          if (confirm(message) == true) {
-            close(decidingContinue);
+        fire : function(message, title) {
+          dialogMessage = message + " Click Cancel to remain on this page. Click OK to leave.";
+          // Use a default Yes/No dialog rather than facebox
+          if (confirm(dialogMessage) == true) {
+            // Tell DirtyForms that we've decided to continue with the action
+            $.DirtyForms.choiceContinue = true;
+            console.log("$.DirtyForms.choiceContinue = " + $.DirtyForms.choiceContinue);
+            $.DirtyForms.choiceCommit(event)
           }
           else {
-            close(decidingCancel);
+            $.DirtyForms.choiceContinue = false;
+            console.log("$.DirtyForms.choiceContinue = " + $.DirtyForms.choiceContinue);
+            $.DirtyForms.choiceCommit(event)
           }
         },
+        refire : function(content, ev){
+          // We don't need refire, since we're using system dialog
+          return false;
+        },
         bind : function() {
-          var close = function(decision) {
-            return function(e) {
-              e.preventDefault();
-              //$(document).trigger('close.facebox');
-              decision(e);
-            };
-          };
-          $('#facebox .cancel, #facebox .close, #facebox_overlay').click(close(decidingCancel));
-          $('#facebox .continue').click(close(decidingContinue));
+          // We don't need to define bind
+          return false;
         },
         stash : function(){
-          var fb = $('#facebox');
-          return ($.trim(fb.html()) == '' || fb.css('display') != 'block') ?
-             false :
-             $('#facebox .content').clone(true);
-        },
-        selector : '#facebox .content'
+          // We don't need to define stash
+          return false;
+        }
       },
 
       isDirty : function(){
