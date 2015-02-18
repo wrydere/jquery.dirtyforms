@@ -25,12 +25,10 @@ if (typeof jQuery == 'undefined') throw ("jQuery Required");
           if (confirm(dialogMessage) == true) {
             // Tell DirtyForms that we've decided to continue with the action
             $.DirtyForms.choiceContinue = true;
-            console.log("$.DirtyForms.choiceContinue = " + $.DirtyForms.choiceContinue);
             $.DirtyForms.choiceCommit(event)
           }
           else {
             $.DirtyForms.choiceContinue = false;
-            console.log("$.DirtyForms.choiceContinue = " + $.DirtyForms.choiceContinue);
             $.DirtyForms.choiceCommit(event)
           }
         },
